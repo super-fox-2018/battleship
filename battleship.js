@@ -9,17 +9,17 @@ const rl = readline.createInterface({
 
   function board(){
     var array=[]
-    var numi=0
-    var numj=1
+    var numrow=0
+    var numcolumn=1
     for(var i=0; i<11; i++){
         array.push([])
         for(var j=0; j<11; j++){
          if(i==0){
-           array[i].push(numi)
-           numi++
+           array[i].push(numrow)
+           numrow++
          }else if(j==0){
-           array[i].push(numj)
-           numj++
+           array[i].push(numcolumn)
+           numcolumn++
          }else{
            array[i].push(" ")
          }
