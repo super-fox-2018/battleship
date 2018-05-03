@@ -8,24 +8,24 @@ const rl = readline.createInterface({
   }); 
 
   function board(){
-    var array=[]
+    var boardarray=[]
     var numrow=0
     var numcolumn=1
     for(var i=0; i<11; i++){
-        array.push([])
+        boardarray.push([])
         for(var j=0; j<11; j++){
-         if(i==0){
-           array[i].push(numrow)
+         if(i==0){09
+           boardarray[i].push(numrow)
            numrow++
          }else if(j==0){
-           array[i].push(numcolumn)
+           boardarray[i].push(numcolumn)
            numcolumn++
          }else{
-           array[i].push(" ")
+           boardarray[i].push(" ")
          }
         }
     }
-    return array
+    return boardarray
 }
 
 var Battleships = () =>{
@@ -44,7 +44,6 @@ var putShip = (array)=>{
     var orientasi=['horizontal','vertikal']
     for(i=0;i<generateBattleship;i++){
         var pickShipRandomly = Math.round(Math.random()*(Battleship.length-1))
-        console.log(pickShipRandomly)
         var checkingAvailability = true
         while(checkingAvailability){
             if(EnemySpotted.indexOf(Battleship[pickShipRandomly])>=0){
@@ -65,36 +64,36 @@ var putShip = (array)=>{
         if(columnstart>10-EnemySpotted[i]['Size']){
             columnstart-=EnemySpotted[i]['Size']
         }
-        for(j=1;j<=EnemySpotted[i]['Size'];j++){
+        for(j=0;j<EnemySpotted[i]['Size'];j++){
+            console.log(EnemySpotted[i])
+            console.log(columnstart)
+            console.log(rowstart)
+            console.log(orient)
             if(orient == 'horizontal'){
                 if(checkSpotAvailability(board[rowstart][columnstart+j])){
-                    temp = board[rowstart][columnstart+j]
                     for(n=columnstart+j-1;n>=columnstart;n--){
                         board[rowstart][n]=' '
                     }
-                    board[rowstart][columnstart+j] = temp
                     orient = orientasi[Math.round(Math.random())]
                     columnstart = parseInt(Math.random()*9+1)
                     if(columnstart>10-EnemySpotted[i]['Size']){
                         columnstart-=EnemySpotted[i]['Size']
                     }
-                    j=0
+                    j=-1
                 }else{                
                     board[rowstart][columnstart+j]=checkBattleshipType(EnemySpotted[i]['Name'])
                 }
-            }else{
+            }else if(orient == 'vertikal'){
                 if(checkSpotAvailability(board[rowstart+j][columnstart])){
-                    temp = board[rowstart+j][columnstart]
                     for(n=rowstart+j-1;n>=rowstart;n--){
                         board[n][columnstart]=' '
                     }
-                    board[rowstart+j][columnstart] = temp
                     orient = orientasi[Math.round(Math.random())]
                     rowstart = parseInt(Math.random()*9+1)
                     if(rowstart>10-EnemySpotted[i]['Size']){
                         rowstart-=EnemySpotted[i]['Size']
                     }
-                    j=0
+                    j=-1
                 }else{
                     board[rowstart+j][columnstart]=checkBattleshipType(EnemySpotted[i]['Name'])
                 }
@@ -126,6 +125,7 @@ var checkBattleshipType = boatName =>{
 
 
 var board = putShip(board())
+console.log(board)
 var pertanyakankolom = (board,shipsAvailable)=>{
     if(shipsAvailable==undefined){
         shipsAvailable = []
