@@ -4,20 +4,26 @@ let coordinate = argv[2];
 var ships = [{
   name: 'Aircraft Carrier',
   size: 5,
-  location: []
+  location: [],
+  hits: 0
 },{
   name: 'Battleship',
   size: 4,
-  location: []
+  location: [],
+  hits: 0
 },{
   name: 'Cruiser',
   size: 3,
-  location: []
+  location: [],
+  hits: 0
 },{
   name: 'Destroyer',
   size: 2,
-  location: []
+  location: [],
+  hits: 0
 }];
+
+var destroyedShip = [];
 
 function generateBoard(length) {
   let board = [];
@@ -51,8 +57,27 @@ function startGame() {
     } else {
       board[hitRow][hitCol] = 'X';
     }
+    let attackCoordinateString = hitRow + '' + hitCol;
+    checkHits(attackCoordinateString);
   }
-  return board;
+  addDestroyedShip();
+  return beautify(board);
+}
+
+function addDestroyedShip() {
+  for (let i = 0; i < ships.length; i++) {
+    if (ships[i].hits === ships[i].size) {
+      destroyedShip.push(ships[i].name);
+    }
+  }
+}
+
+function checkHits(attacked) {
+  for (let i = 0; i < ships.length; i++) {
+    if (ships[i].location.indexOf(attacked) !== -1) {
+      ships[i].hits += 1;
+    }
+  }
 }
 
 function collision(array) {
@@ -128,5 +153,24 @@ function shoot(spot) {
   return [row, col];
 }
 
+function beautify(board) {
+  for (let i = 0; i < board.length; i++) {
+    board[i] = board[i].join('|');
+  }
+  return board;
+}
+
+function endGame() {
+  for (let i = 0; i < ships.length; i++) {
+    console.log(`You hit ${ships[i].name} ${ships[i].hits} times`);
+  }
+  if (destroyedShip.length !== 0) {
+    for (let i = 0; i < destroyedShip.length; i++) {
+      console.log(`Congratulations! You destroyed the ${destroyedShip[i]}!`);
+    }
+  }
+  return '';
+}
+
 console.log(startGame());
-console.log(ships);
+console.log(endGame());
