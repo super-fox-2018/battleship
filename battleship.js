@@ -65,10 +65,6 @@ var putShip = (array)=>{
             columnstart-=EnemySpotted[i]['Size']
         }
         for(j=0;j<EnemySpotted[i]['Size'];j++){
-            console.log(EnemySpotted[i])
-            console.log(columnstart)
-            console.log(rowstart)
-            console.log(orient)
             if(orient == 'horizontal'){
                 if(checkSpotAvailability(board[rowstart][columnstart+j])){
                     for(n=columnstart+j-1;n>=columnstart;n--){
@@ -125,7 +121,6 @@ var checkBattleshipType = boatName =>{
 
 
 var board = putShip(board())
-console.log(board)
 var pertanyakankolom = (board,shipsAvailable)=>{
     if(shipsAvailable==undefined){
         shipsAvailable = []
