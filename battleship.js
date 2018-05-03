@@ -43,11 +43,12 @@ var putShip = (array)=>{
     var generateBattleship= parseInt(Math.random()*3+1)
     var orientasi=['horizontal','vertikal']
     for(i=0;i<generateBattleship;i++){
-        var pickShipRandomly = parseInt(Math.random()*Battleship.length-1)
+        var pickShipRandomly = Math.round(Math.random()*(Battleship.length-1))
+        console.log(pickShipRandomly)
         var checkingAvailability = true
         while(checkingAvailability){
             if(EnemySpotted.indexOf(Battleship[pickShipRandomly])>=0){
-                pickShipRandomly = parseInt(Math.random()*Battleship.length-1)
+                pickShipRandomly = Math.round(Math.random()*(Battleship.length-1))
             }else{
                 checkingAvailability = false
             }
