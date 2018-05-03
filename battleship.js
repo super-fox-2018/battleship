@@ -113,9 +113,10 @@ var ship = [AC, B, C, D ];
 
 console.log('\n')
 
-//theBoard[1][1]='AC';
+theBoard[1][1]='AC';
 //console.log(theBoard);
-console.log(showTheShip())
+console.log(showTheShip());
+console.log('\n');
 
 var argv = process.argv;
 var rowPlayer = argv[2];
@@ -134,7 +135,11 @@ function findCol(colPlayer){
 
 function checkTarget(row, col){
     if(theBoard[row][col]!==' '){
-        return 'kamu berhasil menenggelamkan ' + theBoard[row][col] +'\n'+'SELAMAT KAMU MENANG';
+        var tempShip = theBoard[row][col]
+        theBoard[row][col] = 'X';
+        console.log(theBoard);
+        console.log('shoot at : ' +row+' ' + colPlayer)
+        return 'kamu berhasil menenggelamkan SHIP ' + tempShip +'\n'+'SELAMAT KAMU MENANG';
     }else{
         return 'coba lagi'
     }
